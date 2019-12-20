@@ -1,0 +1,54 @@
+{
+  "1": {
+    "ID": 1,
+    "Name": "大力士",
+    "AssetName": "BS001",
+    "HP": 100,
+    "Attack": 15,
+    "Defence": 0,
+    "ActPoints": 5,
+    "Skills": [
+      1,
+      2
+    ],
+    "Hit": 8,
+    "Dodge": 0,
+    "Critical": 1.8,
+    "Open": true
+  },
+  "2": {
+    "ID": 2,
+    "Name": "弓箭手",
+    "AssetName": "BS002",
+    "HP": 352,
+    "Attack": 22,
+    "Defence": 3,
+    "ActPoints": 32,
+    "Skills": [
+      3,
+      4
+    ],
+    "Hit": 3,
+    "Dodge": 4,
+    "Critical": 2.4,
+    "Open": true
+  },
+  "3": {
+    "ID": 3,
+    "Name": "步兵",
+    "AssetName": "BS003",
+    "HP": 332,
+    "Attack": 3,
+    "Defence": 44,
+    "ActPoints": 432,
+    "Skills": [
+      5,
+      6,
+      7
+    ],
+    "Hit": 3,
+    "Dodge": 4,
+    "Critical": 2,
+    "Open": false
+  }
+}
