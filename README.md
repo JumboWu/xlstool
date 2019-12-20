@@ -28,13 +28,13 @@
 
   
 
-  ![1576751138628](Docs\cmd.png)
+  ![1576751138628](Docs/cmd.png)
 
 
 
 ## GUI工具
 
-![](Docs\gui.png)
+![](Docs/gui.png)
 
 
 
