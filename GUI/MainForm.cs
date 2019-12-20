@@ -22,6 +22,7 @@ namespace xlstool.GUI {
         private FastColoredTextBox mCodeTextBox;
         private FastColoredTextBox mLuaTextBox;
         private FastColoredTextBox mGoTextBox;
+        private FastColoredTextBox mTSTextBox;
 
         // 文本框的样式
         private TextStyle mBrownStyle = new TextStyle(Brushes.Brown, null, FontStyle.Regular);
@@ -54,6 +55,9 @@ namespace xlstool.GUI {
             mGoTextBox = createTextBoxInTab(this.tabPageGo);
             mGoTextBox.Language = Language.Custom;
 
+            mTSTextBox = createTextBoxInTab(this.tabPageTS);
+            mTSTextBox.Language = Language.JS;
+
             //-- componet init states
             this.comboBoxType.SelectedIndex = 0;
             this.comboBoxLowcase.SelectedIndex = 1;
@@ -78,6 +82,7 @@ namespace xlstool.GUI {
             mExportButtonList.Add(this.btnSaveCSharp);
             mExportButtonList.Add(this.btnSaveLua);
             mExportButtonList.Add(this.btnSaveGo);
+            mExportButtonList.Add(this.btnSaveTS);
             enableExportButtons(false);
 
             //-- data manager
@@ -212,6 +217,7 @@ namespace xlstool.GUI {
                 mCodeTextBox.Text = mDataMgr.CSharpCode;
                 mLuaTextBox.Text = mDataMgr.LuaCode;
                 mGoTextBox.Text = mDataMgr.GoCode;
+                mTSTextBox.Text = mDataMgr.TSCode;
 
                 List<string> sheetList = mDataMgr.SheetList;
                 if(sheetList != null)
@@ -255,7 +261,7 @@ namespace xlstool.GUI {
         /// <summary>
         /// 保存导出文件
         /// </summary>
-        private void saveToFile(int type, string filter, string fileName = "") {
+        private void saveToFile(CodeType type, string filter, string fileName = "") {
 
             try {
                 SaveFileDialog dlg = new SaveFileDialog();
@@ -265,20 +271,23 @@ namespace xlstool.GUI {
                 if (dlg.ShowDialog() == DialogResult.OK) {
                     lock (mDataMgr) {
                         switch (type) {
-                            case 1:
+                            case CodeType.Json:
                                 mDataMgr.saveJson(dlg.FileName);
                                 break;
-                            case 2:
+                            case CodeType.Sql:
                                 mDataMgr.saveSQL(dlg.FileName);
                                 break;
-                            case 3:
+                            case CodeType.CSharp:
                                 mDataMgr.saveCS(dlg.FileName);
                                 break;
-                            case 4:
+                            case CodeType.Lua:
                                 mDataMgr.saveLua(dlg.FileName);
                                 break;
-                            case 5:
+                            case CodeType.Go:
                                 mDataMgr.saveGo(dlg.FileName);
+                                break;
+                            case CodeType.TypeScript:
+                                mDataMgr.saveTS(dlg.FileName);
                                 break;
                         }
                     }
@@ -294,21 +303,21 @@ namespace xlstool.GUI {
         /// 工具栏按钮：Save Json
         /// </summary>
         private void btnSaveJson_Click(object sender, EventArgs e) {
-            saveToFile(1, "Json File(*.json)|*.json", Utils.GetStructName(mDataMgr.Options.TableName));
+            saveToFile(CodeType.Json, "Json File(*.json)|*.json", Utils.GetStructName(mDataMgr.Options.TableName));
         }
 
         /// <summary>
         /// 工具栏按钮：Save SQL
         /// </summary>
         private void btnSaveSQL_Click(object sender, EventArgs e) {
-            saveToFile(2, "SQL File(*.sql)|*.sql", Utils.GetStructName(mDataMgr.Options.TableName));
+            saveToFile(CodeType.Sql, "SQL File(*.sql)|*.sql", Utils.GetStructName(mDataMgr.Options.TableName));
         }
 
         /// <summary>
         /// 工具栏按钮：Save C#
         /// </summary>
         private void btnSaveCSharp_Click(object sender, EventArgs e) {
-            saveToFile(3, "C# Code File(*.cs)|*.cs", Utils.GetStructName(mDataMgr.Options.TableName));
+            saveToFile(CodeType.CSharp, "C# Code File(*.cs)|*.cs", Utils.GetStructName(mDataMgr.Options.TableName));
         }
 
         /// <summary>
@@ -387,12 +396,17 @@ namespace xlstool.GUI {
 		
         private void btnSaveLua_Click(object sender, EventArgs e)
         {
-            saveToFile(4, "Lua Code File(*.lua)|*.lua", Utils.GetStructName(mDataMgr.Options.TableName));
+            saveToFile(CodeType.Lua, "Lua Code File(*.lua)|*.lua", Utils.GetStructName(mDataMgr.Options.TableName));
         }
 
         private void btnSaveGo_Click(object sender, EventArgs e)
         {
-            saveToFile(5, "Go Code File(*.go)|*.go", Utils.GetStructName(mDataMgr.Options.TableName));
+            saveToFile(CodeType.Go, "Go Code File(*.go)|*.go", Utils.GetStructName(mDataMgr.Options.TableName));
+        }
+
+        private void btnSaveTS_Click(object sender, EventArgs e)
+        {
+            saveToFile(CodeType.TypeScript, "TypeScript Code File(*.ts)|*.ts", Utils.GetStructName(mDataMgr.Options.TableName));
         }
     }
 }

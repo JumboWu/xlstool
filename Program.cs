@@ -164,6 +164,13 @@ namespace xlstool {
                     GoDefineGenerator exporter = new GoDefineGenerator(excelName, sheet, options.Lowcase);
                     exporter.SaveToFile(options.GoPath, cd);
                 }
+
+                //-- 生成TS文件
+                if (options.TSPath != null && options.TSPath.Length > 0)
+                {
+                    TSDefineGenerator exporter = new TSDefineGenerator(excelName, sheet, options.Lowcase);
+                    exporter.SaveToFile(options.TSPath, cd);
+                }
             }
         }
 

@@ -62,6 +62,14 @@ namespace xlstool {
                 set;
             }
 
+            [Option("ts", Required = false, HelpText = "export typescript data struct code file path.")]
+            public string TSPath
+            {
+                get;
+                set;
+            }
+
+
             [Option("header", Required = true, HelpText = "number lines in sheet as header.")]
             public int HeaderRows {
                 get;

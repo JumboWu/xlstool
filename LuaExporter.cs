@@ -10,7 +10,7 @@ using Newtonsoft.Json;
 namespace xlstool
 {
     /// <summary>
-    /// 将DataTable对象，转换成JSON string，并保存到文件中
+    /// 将DataTable对象，转换成Lua Table表，并保存到文件中
     /// </summary>
     class LuaExporter
     {

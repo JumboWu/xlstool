@@ -2,6 +2,16 @@
 
 namespace xlstool
 {
+    public enum CodeType
+    {
+        Json,
+        Sql,
+        CSharp,
+        Lua,
+        Go,
+        TypeScript,
+    }
+
     public class Utils
     {
         public const string KV = "K:V";
@@ -77,6 +87,26 @@ namespace xlstool
             content = content.Trim();
             content = content.Trim(new char []{ '[', ']'});
             return content;
+       }
+
+       public static string ConvertFieldType(CodeType codeType, string fieldType)
+       {
+            string targetType = fieldType;
+            switch (codeType)
+            {
+                case CodeType.Go:
+                    if (fieldType == "double")
+                        targetType = "float64";
+                    break;
+                case CodeType.TypeScript:
+                    if (fieldType == "int" || fieldType == "int64" || fieldType == "double")
+                        targetType = "number";
+                    else if (fieldType == "bool")
+                        targetType = "boolean";
+                    break;
+            }
+
+            return targetType;
        }
 
     }

@@ -7,10 +7,10 @@ using System.Collections.Generic;
 namespace xlstool
 {
     /// <summary>
-    /// 根据表头，生成Go定义数据结构
+    /// 根据表头，生成TypeScript类定义数据结构
     /// 表头使用三行定义：字段名称、字段类型、注释
     /// </summary>
-    class GoDefineGenerator
+    class TSDefineGenerator
     {
         struct FieldDef
         {
@@ -29,7 +29,7 @@ namespace xlstool
             }
         }
 
-        public GoDefineGenerator(string excelName, DataTable sheet, bool lowcase)
+        public TSDefineGenerator(string excelName, DataTable sheet, bool lowcase)
         {
             string structName = Utils.GetStructName(sheet.TableName);
             List<FieldDef> m_fieldList = new List<FieldDef>();
@@ -46,17 +46,16 @@ namespace xlstool
                     FieldDef field;
                     field.name = sheet.Rows[i][0].ToString();
                     field.type = sheet.Rows[i][1].ToString();
-
                     if (Utils.IsArray(field.type))
                     {
                         string fType = Utils.GetArrayItemType(field.type);
-                        if (fType == "double")
-                            fType = "float64";
-                        field.type = "[]" + fType;
+                        fType = Utils.ConvertFieldType(CodeType.TypeScript, fType);
+                        field.type = fType + "[]";
                     }
-                    else if (field.type == "double")
-                        field.type = "float64";
-
+                    else
+                    {
+                        field.type = Utils.ConvertFieldType(CodeType.TypeScript, field.type);
+                    }
                     field.comment = sheet.Rows[i][4].ToString();
 
                     if (lowcase)
@@ -77,18 +76,17 @@ namespace xlstool
                     FieldDef field;
                     field.name = nameRow[column].ToString();
                     field.type = typeRow[column].ToString();
-
                     if (Utils.IsArray(field.type))
                     {
                         string fType = Utils.GetArrayItemType(field.type);
-                        fType = Utils.ConvertFieldType(CodeType.Go, fType);
-                        field.type = "[]" + fType;
+                        fType = Utils.ConvertFieldType(CodeType.TypeScript, fType);
+                        field.type = fType + "[]";
                     }
                     else
                     {
-                        field.type = Utils.ConvertFieldType(CodeType.Go, field.type);
+                        field.type = Utils.ConvertFieldType(CodeType.TypeScript, field.type);
                     }
-
+                    
                     field.comment = commentRow[column].ToString();
 
                     if (lowcase)
@@ -98,19 +96,18 @@ namespace xlstool
                 }
             }
 
+
             //-- 创建代码字符串
             StringBuilder sb = new StringBuilder();
             sb.AppendLine("// Auto Generated Code By xlstool");
             sb.AppendFormat("// Generate From {0}.xlsx | {1}", excelName, sheet.TableName);
             sb.AppendLine();
-            sb.AppendLine("package config");
-            sb.AppendLine();
-            sb.AppendFormat("type {0} struct {{", structName);
+            sb.AppendFormat("export class {0} {{", structName);
             sb.AppendLine();
 
             foreach (FieldDef field in m_fieldList)
             {
-                sb.AppendFormat("\t{0} {1} // {2}", field.name, field.type, field.comment);
+                sb.AppendFormat("\t {0}: {1}; // {2}", field.name, field.type, field.comment);
                 sb.AppendLine();
             }
 

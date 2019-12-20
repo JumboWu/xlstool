@@ -28,13 +28,13 @@
 
   
 
-  ![1576751138628](Docs/cmd.png)
+  ![命令行](Docs/cmd.png)
 
 
 
 ## GUI工具
 
-![](Docs/gui.png)
+![GUI](Docs/gui.png)
 
 
 

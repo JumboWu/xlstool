@@ -22,6 +22,7 @@ namespace xlstool.GUI {
         private CSDefineGenerator mCSharp;
         private LuaExporter mLua;
         private GoDefineGenerator mGo;
+        private TSDefineGenerator mTS;
 
         public Program.Options Options { get { return mOptions; } }
 
@@ -96,6 +97,20 @@ namespace xlstool.GUI {
         }
 
         /// <summary>
+        /// 导出的TS代码
+        /// </summary>
+        public string TSCode
+        {
+            get
+            {
+                if (mTS != null)
+                    return mTS.code;
+                else
+                    return "";
+            }
+        }
+
+        /// <summary>
         /// 保存Json
         /// </summary>
         /// <param name="filePath">保存路径</param>
@@ -148,6 +163,17 @@ namespace xlstool.GUI {
             }
         }
 
+        /// <summary>
+        /// 保存TS代码
+        /// </summary>
+        /// <param name="filePath">保存路径</param>
+        public void saveTS(string filePath)
+        {
+            if (mTS != null)
+            {
+                mTS.SaveToFile(filePath, mEncoding);
+            }
+        }
 
         /// <summary>
         /// 加载Excel文件
@@ -253,6 +279,9 @@ namespace xlstool.GUI {
 
                 //--生成Go
                 mGo = new GoDefineGenerator(excelName, sheet, options.Lowcase);
+
+                //--生成TS
+                mTS = new TSDefineGenerator(excelName, sheet, options.Lowcase);
             }
         }
      

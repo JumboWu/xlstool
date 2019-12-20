@@ -107,6 +107,7 @@
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
     <Compile Include="SQLExporter.cs" />
+    <Compile Include="TSDefineGenerator.cs" />
     <Compile Include="Utils.cs" />
   </ItemGroup>
   <ItemGroup>
