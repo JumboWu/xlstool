@@ -94,6 +94,19 @@ namespace xlstool
             string targetType = fieldType;
             switch (codeType)
             {
+                //PostgreSQL
+                case CodeType.Sql:
+                    if (fieldType == "int")
+                        targetType = "INTEGER";
+                    else if (fieldType == "int64" || fieldType == "double")
+                        targetType = "Numeric";
+                    else if (fieldType == "string")
+                        targetType = "VARCHAR(128)";
+                    else if (fieldType == "bool")
+                        targetType = "BOOLEAN";
+                    else if (IsArray(fieldType))
+                        targetType = "VARCHAR(128)";
+                    break;
                 case CodeType.Go:
                     if (fieldType == "double")
                         targetType = "float64";

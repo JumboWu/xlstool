@@ -78,6 +78,7 @@ ExampleData.xlsx：英雄#HeroCfg
 
 1. type[]是数组类型，其中type可以是int\int64\double\string\bool类型,例如1;2;3,“a”;"b";"c"
 2. 如果要表示字典类型，建议通过ID索引到另外sheet表单
+3. sql: PostgreSQL
 
 
 

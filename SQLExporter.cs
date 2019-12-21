@@ -95,13 +95,8 @@ namespace xlstool
                     sbValues.AppendFormat("'{0}'", row[column].ToString());
                 }
 
-#if false
-                sbContent.AppendFormat("INSERT INTO `{0}`({1}) VALUES({2});\n",
-                    tabelName, sbNames.ToString(), sbValues.ToString());
-#else
-                sbContent.AppendFormat("INSERT INTO `{0}` VALUES({1});\n",
+                sbContent.AppendFormat("INSERT INTO {0} VALUES({1});\n",
                     tabelName, sbValues.ToString());
-#endif
 
             }
 
@@ -114,8 +109,8 @@ namespace xlstool
         private string GetTabelStructSQL(DataTable sheet, string tabelName, bool lowcase)
         {
             StringBuilder sb = new StringBuilder();
-            sb.AppendFormat("DROP TABLE IF EXISTS `{0}`;\n", tabelName);
-            sb.AppendFormat("CREATE TABLE `{0}` (\n", tabelName);
+            sb.AppendFormat("DROP TABLE IF EXISTS {0};\n", tabelName);
+            sb.AppendFormat("CREATE TABLE {0} (\n", tabelName);
 
             string key;
             string filedName;
@@ -123,6 +118,8 @@ namespace xlstool
 
             DataRow nameRow = sheet.Rows[0];
             DataRow typeRow = sheet.Rows[1];
+            key = nameRow[0].ToString();
+            sb.AppendFormat("PRIMARY KEY ({0}) ", key);
             foreach (DataColumn column in sheet.Columns)
             {
                 filedName = nameRow[column].ToString();
@@ -131,22 +128,13 @@ namespace xlstool
 
                 filedType = typeRow[column].ToString();
 
-                if (filedType == "varchar")
-                    sb.AppendFormat("`{0}` {1}(64),", filedName, filedType);
-                else if (filedType == "text")
-                    sb.AppendFormat("`{0}` {1}(256),", filedName, filedType);
-                else
-                {
-                    if (Utils.IsArray(filedType))
-                        filedType = "string";
-                    sb.AppendFormat("`{0}` {1},", filedName, filedType);
-                }
+                filedType = Utils.ConvertFieldType(CodeType.Sql, filedType);
+                sb.AppendFormat(", {0} {1}", filedName, filedType);
 
             }
 
-            key = nameRow[0].ToString();
-            sb.AppendFormat("PRIMARY KEY (`{0}`) ", key);
-            sb.AppendLine("\n) DEFAULT CHARSET=utf8;");
+            sb.AppendLine("\n);");
+            //sb.AppendLine("\n) DEFAULT CHARSET=utf8;");
             sb.AppendLine();
 
 

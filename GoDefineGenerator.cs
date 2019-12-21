@@ -110,7 +110,7 @@ namespace xlstool
 
             foreach (FieldDef field in m_fieldList)
             {
-                sb.AppendFormat("\t{0} {1} // {2}", field.name, field.type, field.comment);
+                sb.AppendFormat("\t{0} {1} `json:\"{2}\"`// {3}", field.name, field.type, field.name , field.comment);
                 sb.AppendLine();
             }
 
