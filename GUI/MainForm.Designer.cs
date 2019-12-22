@@ -46,6 +46,7 @@
             this.btnSaveCSharp = new System.Windows.Forms.ToolStripButton();
             this.btnSaveLua = new System.Windows.Forms.ToolStripButton();
             this.btnSaveGo = new System.Windows.Forms.ToolStripButton();
+            this.btnSaveTS = new System.Windows.Forms.ToolStripButton();
             this.toolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
             this.flowLayoutPanel1 = new System.Windows.Forms.FlowLayoutPanel();
@@ -67,9 +68,9 @@
             this.tabPageCode = new System.Windows.Forms.TabPage();
             this.tabPageLua = new System.Windows.Forms.TabPage();
             this.tabPageGo = new System.Windows.Forms.TabPage();
-            this.backgroundWorker = new System.ComponentModel.BackgroundWorker();
-            this.btnSaveTS = new System.Windows.Forms.ToolStripButton();
             this.tabPageTS = new System.Windows.Forms.TabPage();
+            this.backgroundWorker = new System.ComponentModel.BackgroundWorker();
+            this.btnHelp = new System.Windows.Forms.ToolStripButton();
             label2 = new System.Windows.Forms.Label();
             label1 = new System.Windows.Forms.Label();
             label4 = new System.Windows.Forms.Label();
@@ -178,7 +179,8 @@
             this.btnSaveLua,
             this.btnSaveGo,
             this.btnSaveTS,
-            this.toolStripSeparator2});
+            this.toolStripSeparator2,
+            this.btnHelp});
             this.toolStrip.Location = new System.Drawing.Point(0, 0);
             this.toolStrip.Name = "toolStrip";
             this.toolStrip.Size = new System.Drawing.Size(784, 48);
@@ -265,6 +267,16 @@
             this.btnSaveGo.Text = "Save Go";
             this.btnSaveGo.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
             this.btnSaveGo.Click += new System.EventHandler(this.btnSaveGo_Click);
+            // 
+            // btnSaveTS
+            // 
+            this.btnSaveTS.Image = global::xlstool.Properties.Resources.code;
+            this.btnSaveTS.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.btnSaveTS.Name = "btnSaveTS";
+            this.btnSaveTS.Size = new System.Drawing.Size(57, 45);
+            this.btnSaveTS.Text = "Save TS";
+            this.btnSaveTS.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
+            this.btnSaveTS.Click += new System.EventHandler(this.btnSaveTS_Click);
             // 
             // toolStripSeparator2
             // 
@@ -528,21 +540,6 @@
             this.tabPageGo.Text = "Go";
             this.tabPageGo.UseVisualStyleBackColor = true;
             // 
-            // backgroundWorker
-            // 
-            this.backgroundWorker.DoWork += new System.ComponentModel.DoWorkEventHandler(this.backgroundWorker_DoWork);
-            this.backgroundWorker.RunWorkerCompleted += new System.ComponentModel.RunWorkerCompletedEventHandler(this.backgroundWorker_RunWorkerCompleted);
-            // 
-            // btnSaveTS
-            // 
-            this.btnSaveTS.Image = global::xlstool.Properties.Resources.code;
-            this.btnSaveTS.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.btnSaveTS.Name = "btnSaveTS";
-            this.btnSaveTS.Size = new System.Drawing.Size(57, 45);
-            this.btnSaveTS.Text = "Save TS";
-            this.btnSaveTS.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
-            this.btnSaveTS.Click += new System.EventHandler(this.btnSaveTS_Click);
-            // 
             // tabPageTS
             // 
             this.tabPageTS.Location = new System.Drawing.Point(4, 22);
@@ -552,6 +549,21 @@
             this.tabPageTS.TabIndex = 5;
             this.tabPageTS.Text = "TS";
             this.tabPageTS.UseVisualStyleBackColor = true;
+            // 
+            // backgroundWorker
+            // 
+            this.backgroundWorker.DoWork += new System.ComponentModel.DoWorkEventHandler(this.backgroundWorker_DoWork);
+            this.backgroundWorker.RunWorkerCompleted += new System.ComponentModel.RunWorkerCompletedEventHandler(this.backgroundWorker_RunWorkerCompleted);
+            // 
+            // btnHelp
+            // 
+            this.btnHelp.Image = global::xlstool.Properties.Resources.about;
+            this.btnHelp.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.btnHelp.Name = "btnHelp";
+            this.btnHelp.Size = new System.Drawing.Size(39, 45);
+            this.btnHelp.Text = "Help";
+            this.btnHelp.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
+            this.btnHelp.Click += new System.EventHandler(this.btnHelp_Click);
             // 
             // MainForm
             // 
@@ -622,5 +634,6 @@
         private System.Windows.Forms.TabPage tabPageGo;
         private System.Windows.Forms.ToolStripButton btnSaveTS;
         private System.Windows.Forms.TabPage tabPageTS;
+        private System.Windows.Forms.ToolStripButton btnHelp;
     }
 }

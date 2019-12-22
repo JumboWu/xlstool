@@ -1,5 +1,15 @@
 # xlstool导表工具
 
+## 主要功能
+
+- 支持读取 Excel 97-2003的 .xls格式和2007的 .xlsx格式；
+- 支持多个表单导出；
+- 支持键值表导出，暂时不支持sql；
+- 把Excel表单转换成Json，并保存到一个文本文件中，支持将表中内容转换成**Array**数组，或者以第一列为ID的**字典对象**；
+- 把Excel表单转换成Lua table，并保存到一个文本文件中；
+- 把Excel表单转换成PostgreSQL 语句，并保存到一个文本文件中；
+- 把Excel表单转换成CSharp、Go、TypeScript数据结构定义；
+
 ## 命令行参数
 
 * –-excel Required. 输入的Excel文件路径.
@@ -10,11 +20,13 @@
 
 * -–sql 指定输出的SQL文件路径.
 
-* -–cs 指定输出的C#数据定义代码文件路径.
+* -–cs 指定输出的C#数据结构定义的代码文件路径.
 
-* -–lua 指定输出的Lua table代码文件路径.
+* -–lua 指定输出的Lua table的代码文件路径.
 
-* --go 指定输出的Go数据定义代码文件路径.
+* --go 指定输出的Go数据结构定义的代码文件路径.
+
+* --ts 指定输出的TypeScript数据结构定义的代码文件路径.
 
 * -–header Required. 表格中有几行是表头.
 
@@ -24,13 +36,15 @@
 
 * --array 序列化成数组
 
-* --plat 表格导出平台标识client/server,不填默认双端
+* --plat 表格导出平台标识client/server,不填默认双端支持
 
   
 
   ![命令行](Docs/cmd.png)
 
 
+
+例如：**xlstool -–excel ExampleData.xlsx --table 英雄#HeroCfg  -–json HeroCfg  .json -–header 4 -–array true**
 
 ## GUI工具
 
@@ -57,7 +71,7 @@ ExampleData.xlsx：英雄#HeroCfg
 
 第二行：字段类型
 
-第三行：双端标识 client、server
+第三行：双端标识 client、server，默认空表示双端
 
 第四行：字段描述
 
@@ -98,3 +112,7 @@ ExampleData.xlsx：全局#GlobalCfg
 
 1. 第一行第一列标识K:V,表示当前标签页为键值表
 2. 其他规则同上
+
+
+
+参考项目：https://github.com/neil3d/excel2json

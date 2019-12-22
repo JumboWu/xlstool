@@ -408,5 +408,10 @@ namespace xlstool.GUI {
         {
             saveToFile(CodeType.TypeScript, "TypeScript Code File(*.ts)|*.ts", Utils.GetStructName(mDataMgr.Options.TableName));
         }
+
+        private void btnHelp_Click(object sender, EventArgs e)
+        {
+            System.Diagnostics.Process.Start("https://jumbowu.github.io");
+        }
     }
 }
