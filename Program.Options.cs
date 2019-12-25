@@ -17,7 +17,7 @@ namespace xlstool {
                 this.Platform = "client";//client server and empty is both two
             }
 
-            [Option('i', "excel", Required = true, HelpText = "input excel file path.")]
+            [Option('i', "input", Required = true, HelpText = "input excel file path.")]
             public string ExcelPath
             {
                 get;
@@ -32,7 +32,7 @@ namespace xlstool {
             }
 
             
-            [Option('c', "code", Required = false, HelpText = "json sql cs lua go ts tsv csv")]
+            [Option('c', "code", Required = true, HelpText = "json sql cs lua go ts tsv csv")]
             public string Code {
                 get;
                 set;
@@ -44,19 +44,19 @@ namespace xlstool {
                 set;
             }
 
-            [Option("encoding", Required = false, DefaultValue = "utf8-nobom", HelpText = "export file encoding.")]
+            [Option('e', "encoding", Required = false, DefaultValue = "utf8-nobom", HelpText = "export file encoding.")]
             public string Encoding {
                 get;
                 set;
             }
 
-            [Option("lowcase", Required = false, DefaultValue = false, HelpText = "convert filed name to lowcase.")]
+            [Option('l', "lowcase", Required = false, DefaultValue = false, HelpText = "convert filed name to lowcase.")]
             public bool Lowcase {
                 get;
                 set;
             }
 
-            [Option("array", Required = false, DefaultValue = false, HelpText = "export as array, otherwise as dict object.")]
+            [Option('a', "array", Required = false, DefaultValue = false, HelpText = "export as array, otherwise as dict object.")]
             public bool ExportArray {
                 get;
                 set;

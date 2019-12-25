@@ -9,34 +9,27 @@
 - 把Excel表单转换成Lua table，并保存到一个文本文件中；
 - 把Excel表单转换成PostgreSQL 语句，并保存到一个文本文件中；
 - 把Excel表单转换成CSharp、Go、TypeScript数据结构定义；
+- 把Excel表单转换成csv、tsv文本格式；
 
 ## 命令行参数
 
-* –-excel Required. 输入的Excel文件路径.
+* -i,–-input Required. 输入的Excel文件路径.
 
-* --table Required. 输入的表格sheet标签名称
+* -t,--table Required. 输入的表格sheet标签名称.
 
-* -–json 指定输出的json文件路径.
+* -c,-–code.指定导出格式 json sql cs lua go ts tsv csv
 
-* -–sql 指定输出的SQL文件路径.
+* -h,-–header Required. 表格中有几行是表头.
 
-* -–cs 指定输出的C#数据结构定义的代码文件路径.
+* -e,-–encoding (Default: utf8-nobom) 指定编码的名称.
 
-* -–lua 指定输出的Lua table的代码文件路径.
+* -l,-–lowcase (Default: false) 自动把字段名称转换成小写格式.
 
-* --go 指定输出的Go数据结构定义的代码文件路径.
+* -a,--array 序列化成数组
 
-* --ts 指定输出的TypeScript数据结构定义的代码文件路径.
+* -p,--plat 表格导出平台标识client/server,不填默认双端支持
 
-* -–header Required. 表格中有几行是表头.
-
-* -–encoding (Default: utf8-nobom) 指定编码的名称.
-
-* -–lowcase (Default: false) 自动把字段名称转换成小写格式.
-
-* --array 序列化成数组
-
-* --plat 表格导出平台标识client/server,不填默认双端支持
+* -o,--out 导出文件路径
 
   
 
@@ -44,7 +37,7 @@
 
 
 
-例如：**xlstool -–excel ExampleData.xlsx --table 英雄#HeroCfg  -–json HeroCfg  .json -–header 4 -–array true**
+例如：**xlstool -i ExampleData.xlsx -t 英雄#HeroCfg  -c json HeroCfg  .json -h 4 -a true**
 
 ## GUI工具
 
