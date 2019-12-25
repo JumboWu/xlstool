@@ -33,7 +33,7 @@
 
   
 
-  ![命令行](Docs\cmd.png)
+  ![命令行](Docs/cmd.png)
 
 
 
@@ -41,7 +41,7 @@
 
 ## GUI工具
 
-![GUI](Docs\gui.png)
+![GUI](Docs/gui.png)
 
 
 
