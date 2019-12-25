@@ -97,6 +97,7 @@
     <Compile Include="GUI\MainForm.Designer.cs">
       <DependentUpon>MainForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="Exporter.cs" />
     <Compile Include="LuaExporter.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Program.Options.cs" />

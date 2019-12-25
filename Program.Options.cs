@@ -17,15 +17,16 @@ namespace xlstool {
                 this.Platform = "client";//client server and empty is both two
             }
 
-            [Option("table", Required = true, HelpText = "input excel table sheet name.")]
-            public string TableName
+            [Option('i', "excel", Required = true, HelpText = "input excel file path.")]
+            public string ExcelPath
             {
                 get;
                 set;
             }
 
-            [Option("excel", Required = true, HelpText = "input excel file path.")]
-            public string ExcelPath {
+            [Option('t', "table", Required = true, HelpText = "input excel table sheet name.")]
+            public string TableName
+            {
                 get;
                 set;
             }
@@ -70,7 +71,7 @@ namespace xlstool {
             }
 
 
-            [Option("header", Required = true, HelpText = "number lines in sheet as header.")]
+            [Option('h', "header", Required = false, DefaultValue = 4, HelpText = "number lines in sheet as header.")]
             public int HeaderRows {
                 get;
                 set;
@@ -93,13 +94,28 @@ namespace xlstool {
                 get;
                 set;
             }
-            [Option("plat", Required = false, DefaultValue = "client",  HelpText = "export only client or server or both two. ")]
+
+            [Option('p', "plat", Required = false, DefaultValue = "client",  HelpText = "export only client or server or both two. ")]
             public string Platform{
                 get;
                 set;
             }
 
-           [HelpOption('h', "help")]
+            [Option('f', "format", Required = false, DefaultValue = "tsv", HelpText = "export excel sheet to csv or tsv foramt. ")]
+            public string ExportFormat
+            {
+                get;
+                set;
+            }
+
+            [Option('o', "out", Required = false, DefaultValue = "Localization.txt", HelpText = "export file to path. ")]
+            public string ExportPath
+            {
+                get;
+                set;
+            }
+
+            [HelpOption('h', "help")]
             public string GetUsage()
             {
                 return HelpText.AutoBuild(this, current => HelpText.DefaultParsingErrorsHandler(this, current));

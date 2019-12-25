@@ -103,6 +103,14 @@ namespace xlstool {
                     }
                 }
 
+                //-- 导出csv、tsv
+                if (options.ExportPath != null && options.ExportPath.Length > 0)
+                {
+                    Exporter exporter = new Exporter(sheet, options.ExportFormat);
+                    exporter.SaveToFile(options.ExportPath, cd);
+                    return;
+                }
+
                 //不满足的清掉
                 Utils.IsKV = (sheet.Rows[0][0].ToString() == Utils.KV);
                 if (!Utils.IsKV)
