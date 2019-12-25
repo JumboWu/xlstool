@@ -47,7 +47,7 @@ namespace xlstool {
                             );
                     }
                     catch (Exception exp) {
-                        Console.WriteLine("Error: " + exp.Message);
+                        Console.WriteLine("Exception: " + exp.Message + " StackTrace: " + exp.StackTrace);
                     }
                 }
             }// end of else

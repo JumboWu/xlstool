@@ -123,12 +123,16 @@ namespace xlstool
                     {
                         string content = "[";
                         string[] items = Utils.GetArrayItems(value.ToString());
-                        for (int j = 0; j < items.Length; i++)
+                        if (items != null)
                         {
-                            content += items[j];
-                            if (j != items.Length - 1)
-                                content += ",";
+                            for (int j = 0; j < items.Length; i++)
+                            {
+                                content += items[j];
+                                if (j != items.Length - 1)
+                                    content += ",";
+                            }
                         }
+
                         content += "]";
                         object[] arr = JsonConvert.DeserializeObject<object[]>(content);
                         rowData[fieldName] = arr;
@@ -168,11 +172,14 @@ namespace xlstool
                     {
                         string content = "[";
                         string[] items = Utils.GetArrayItems(value.ToString());
-                        for (int i = 0; i < items.Length; i++)
+                        if (items != null)
                         {
-                            content += items[i];
-                            if (i != items.Length - 1)
-                                content += ",";
+                            for (int i = 0; i < items.Length; i++)
+                            {
+                                content += items[i];
+                                if (i != items.Length - 1)
+                                    content += ",";
+                            }
                         }
                         content += "]";
                         object[] arr = JsonConvert.DeserializeObject<object[]>(content);
