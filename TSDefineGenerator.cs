@@ -10,7 +10,7 @@ namespace xlstool
     /// 根据表头，生成TypeScript类定义数据结构
     /// 表头使用三行定义：字段名称、字段类型、注释
     /// </summary>
-    class TSDefineGenerator
+    class TSDefineGenerator : IExporter
     {
         struct FieldDef
         {
@@ -118,6 +118,11 @@ namespace xlstool
             mCode = sb.ToString();
         }
 
+        /// <summary>
+        /// 保存TypeScript结构定义
+        /// </summary>
+        /// <param name="filePath">存盘文件</param>
+        /// <param name="encoding">编码格式</param>
         public void SaveToFile(string filePath, Encoding encoding)
         {
             //-- 保存文件

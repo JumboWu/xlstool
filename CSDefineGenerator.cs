@@ -9,7 +9,7 @@ namespace xlstool {
     /// 根据表头，生成C#类定义数据结构
     /// 表头使用三行定义：字段名称、字段类型、注释
     /// </summary>
-    class CSDefineGenerator {
+    class CSDefineGenerator : IExporter {
         struct FieldDef {
             public string name;
             public string type;
@@ -99,6 +99,11 @@ namespace xlstool {
             mCode = sb.ToString();
         }
 
+        /// <summary>
+        /// 保存CS结构定义
+        /// </summary>
+        /// <param name="filePath">存盘文件</param>
+        /// <param name="encoding">编码格式</param>
         public void SaveToFile(string filePath, Encoding encoding) {
             //-- 保存文件
             using (FileStream file = new FileStream(filePath, FileMode.Create, FileAccess.Write)) {

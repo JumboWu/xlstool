@@ -12,7 +12,7 @@ namespace xlstool
     /// <summary>
     /// 将DataTable对象，转换成Lua Table表，并保存到文件中
     /// </summary>
-    class LuaExporter
+    class LuaExporter : IExporter
     {
         string mCode;
 
@@ -382,7 +382,8 @@ namespace xlstool
         /// <summary>
         /// 将内部数据转换成Lua table，并保存至文件
         /// </summary>
-        /// <param name="jsonPath">输出文件路径</param>
+        /// <param name="filePath">存盘文件</param>
+        /// <param name="encoding">编码格式</param>
         public void SaveToFile(string filePath, Encoding encoding)
         {
             //-- 保存文件

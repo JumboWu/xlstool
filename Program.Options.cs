@@ -31,45 +31,12 @@ namespace xlstool {
                 set;
             }
 
-            [Option("json", Required = false, HelpText = "export json file path.")]
-            public string JsonPath {
+            
+            [Option('c', "code", Required = false, HelpText = "json sql cs lua go ts tsv csv")]
+            public string Code {
                 get;
                 set;
             }
-
-            [Option("sql", Required = false, HelpText = "export SQL file path.")]
-            public string SQLPath {
-                get;
-                set;
-            }
-
-            [Option("cs", Required = false, HelpText = "export C# data struct code file path.")]
-            public string CSharpPath {
-                get;
-                set;
-            }
-
-            [Option("lua", Required = false, HelpText = "export Lua code file path.")]
-            public string LuaPath
-            {
-                get;
-                set;
-            }
-
-            [Option("go", Required = false, HelpText = "export Go data struct code file path.")]
-            public string GoPath
-            {
-                get;
-                set;
-            }
-
-            [Option("ts", Required = false, HelpText = "export typescript data struct code file path.")]
-            public string TSPath
-            {
-                get;
-                set;
-            }
-
 
             [Option('h', "header", Required = false, DefaultValue = 4, HelpText = "number lines in sheet as header.")]
             public int HeaderRows {
@@ -101,14 +68,7 @@ namespace xlstool {
                 set;
             }
 
-            [Option('f', "format", Required = false, DefaultValue = "tsv", HelpText = "export excel sheet to csv or tsv foramt. ")]
-            public string ExportFormat
-            {
-                get;
-                set;
-            }
-
-            [Option('o', "out", Required = false, DefaultValue = "Localization.txt", HelpText = "export file to path. ")]
+            [Option('o', "out", Required = false, DefaultValue = "", HelpText = "export file to path. ")]
             public string ExportPath
             {
                 get;

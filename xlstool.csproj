@@ -90,6 +90,7 @@
     <Compile Include="CSDefineGenerator.cs" />
     <Compile Include="GoDefineGenerator.cs" />
     <Compile Include="GUI\DataManager.cs" />
+    <Compile Include="IExporter.cs" />
     <Compile Include="JsonExporter.cs" />
     <Compile Include="GUI\MainForm.cs">
       <SubType>Form</SubType>

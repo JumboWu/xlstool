@@ -9,7 +9,7 @@ namespace xlstool {
     /// <summary>
     /// 将DataTable对象，转换成JSON string，并保存到文件中
     /// </summary>
-    class JsonExporter {
+    class JsonExporter : IExporter{
         string mContext = "";
 
         public string context {
@@ -208,7 +208,8 @@ namespace xlstool {
         /// <summary>
         /// 将内部数据转换成Json文本，并保存至文件
         /// </summary>
-        /// <param name="jsonPath">输出文件路径</param>
+        /// <param name="filePath">存盘文件</param>
+        /// <param name="encoding">编码格式</param>
         public void SaveToFile(string filePath, Encoding encoding) {
             //-- 保存文件
             using (FileStream file = new FileStream(filePath, FileMode.Create, FileAccess.Write)) {

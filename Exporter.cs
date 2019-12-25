@@ -7,7 +7,7 @@ using Newtonsoft.Json;
 
 namespace xlstool
 {
-    class Exporter
+    class Exporter : IExporter
     {
         string mContent;
         /// <summary>

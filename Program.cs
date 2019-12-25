@@ -103,82 +103,78 @@ namespace xlstool {
                     }
                 }
 
-                //-- 导出csv、tsv
-                if (options.ExportPath != null && options.ExportPath.Length > 0)
+
+                if (options.Code != "tsv" && options.Code != "csv")
                 {
-                    Exporter exporter = new Exporter(sheet, options.ExportFormat);
+                    //不满足的清掉
+                    Utils.IsKV = (sheet.Rows[0][0].ToString() == Utils.KV);
+                    if (!Utils.IsKV)
+                    {
+                        DataRow _platRow = sheet.Rows[2];
+                        string _plat;
+                        for (int col = sheet.Columns.Count - 1; col >= 0; col--)
+                        {
+                            _plat = _platRow[col].ToString();
+                            if (_plat == string.Empty || _plat == options.Platform)
+                                continue;
+
+                            //标记这个不需要导出
+                            sheet.Columns.RemoveAt(col);
+                        }
+                    }
+                    else
+                    {
+                        string _plat;
+                        for (int row = sheet.Rows.Count - 1; row >= 2; row--)
+                        {
+                            _plat = sheet.Rows[row][3].ToString();
+                            if (_plat == string.Empty || _plat == options.Platform)
+                                continue;
+
+                            //标记这个不需要导出
+                            sheet.Rows.RemoveAt(row);
+                        }
+                    }
+                }
+              
+
+                IExporter exporter = null;
+                switch (options.Code)
+                {
+                    case "json":
+                        //-- 导出JSON文件
+                        exporter = new JsonExporter(sheet, header, options.Lowcase, options.ExportArray);
+                        break;
+                    case "sql":
+                        //-- 导出SQL文件
+                        exporter = new SQLExporter(sheet, header, options.Lowcase);
+                        break;
+                    case "cs":
+                        //-- 生成C#定义文件
+                        exporter = new CSDefineGenerator(excelName, sheet, options.Lowcase);
+                        break;
+                    case "go":
+                        //-- 生成Go文件
+                        exporter = new GoDefineGenerator(excelName, sheet, options.Lowcase);
+                        break;
+                    case "lua":
+                        //-- 生成Lua文件
+                        exporter = new LuaExporter(excelName, sheet, header, options.Lowcase);
+                        break;
+                    case "ts":
+                        exporter = new TSDefineGenerator(excelName, sheet, options.Lowcase);
+                        break;
+                        //--导出csv、tsv
+                    case "tsv":
+                    case "csv":
+                        exporter = new Exporter(sheet, options.Code);
+                        break;
+                }
+
+                if (exporter != null)
                     exporter.SaveToFile(options.ExportPath, cd);
-                    return;
-                }
 
-                //不满足的清掉
-                Utils.IsKV = (sheet.Rows[0][0].ToString() == Utils.KV);
-                if (!Utils.IsKV)
-                {
-                    DataRow _platRow = sheet.Rows[1];
-                    string _plat;
-                    for (int col = sheet.Columns.Count - 1; col >= 0; col--)
-                    {
-                        _plat = _platRow[col].ToString();
-                        if (_plat == string.Empty || _plat == options.Platform)
-                            continue;
 
-                        //标记这个不需要导出
-                        sheet.Columns.RemoveAt(col);
-                    }
-                }
-                else
-                {
-                    string _plat;
-                    for (int row = sheet.Rows.Count - 1; row >= 2; row--)
-                    {
-                        _plat = sheet.Rows[row][3].ToString();
-                        if (_plat == string.Empty || _plat == options.Platform)
-                            continue;
-
-                        //标记这个不需要导出
-                        sheet.Rows.RemoveAt(row);
-                    }
-                }
-
-                //-- 导出JSON文件
-                if (options.JsonPath != null && options.JsonPath.Length > 0) {
-                    JsonExporter exporter = new JsonExporter(sheet, header, options.Lowcase, options.ExportArray);
-                    exporter.SaveToFile(options.JsonPath, cd);
-                }
-
-                //-- 导出SQL文件
-                if (options.SQLPath != null && options.SQLPath.Length > 0) {
-                    SQLExporter exporter = new SQLExporter(sheet, header, options.Lowcase);
-                    exporter.SaveToFile(options.SQLPath, cd);
-                }
-
-                //-- 生成C#定义文件
-                if (options.CSharpPath != null && options.CSharpPath.Length > 0) {
-                    CSDefineGenerator exporter = new CSDefineGenerator(excelName, sheet, options.Lowcase);
-                    exporter.SaveToFile(options.CSharpPath, cd);
-                }
-
-                //-- 生成Lua文件
-                if (options.LuaPath != null && options.LuaPath.Length > 0)
-                {
-                    LuaExporter exporter = new LuaExporter(excelName, sheet, header, options.Lowcase);
-                    exporter.SaveToFile(options.CSharpPath, cd);
-                }
-
-                //-- 生成Go文件
-                if (options.GoPath != null && options.GoPath.Length > 0)
-                {
-                    GoDefineGenerator exporter = new GoDefineGenerator(excelName, sheet, options.Lowcase);
-                    exporter.SaveToFile(options.GoPath, cd);
-                }
-
-                //-- 生成TS文件
-                if (options.TSPath != null && options.TSPath.Length > 0)
-                {
-                    TSDefineGenerator exporter = new TSDefineGenerator(excelName, sheet, options.Lowcase);
-                    exporter.SaveToFile(options.TSPath, cd);
-                }
             }
         }
 
