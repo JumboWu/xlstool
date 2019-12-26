@@ -122,5 +122,31 @@ namespace xlstool
             return targetType;
        }
 
+
+        public static object GetDefaultValue(CodeType codeType, string fieldType)
+        {
+            switch (codeType)
+            {
+                case CodeType.Json:
+                default:
+                    switch (fieldType)
+                    {
+                        case "int":
+                            return default(int);
+                        case "int64":
+                            return default(System.Int64);
+                        case "double":
+                            return default(double);
+                        case "string":
+                            return default(string);
+                        case "bool":
+                            return default(bool);
+                        default:
+                            break;
+                    }
+                    return null;
+            }
+        }
     }
+
 }

@@ -111,6 +111,7 @@ namespace xlstool {
                     object value = sheet.Rows[i][2];
                     if (value.GetType() == typeof(System.DBNull))
                     {
+                        value = Utils.GetDefaultValue(CodeType.Json, fieldType);
                         throw new Exception(string.Format("cell row:{0} col:{1} is null",i, 2));
                     }
                     else if (value.GetType() == typeof(double))
@@ -123,16 +124,20 @@ namespace xlstool {
                     if (Utils.IsArray(fieldType))
                     {
                         string content = "[";
-                        string[] items = Utils.GetArrayItems(value.ToString());
-                        if (items != null)
+                        if (value != null)
                         {
-                            for (int j = 0; j < items.Length; i++)
+                            string[] items = Utils.GetArrayItems(value.ToString());
+                            if (items != null)
                             {
-                                content += items[j];
-                                if (j != items.Length - 1)
-                                    content += ",";
+                                for (int j = 0; j < items.Length; i++)
+                                {
+                                    content += items[j];
+                                    if (j != items.Length - 1)
+                                        content += ",";
+                                }
                             }
                         }
+                        
                      
                         content += "]";
                         object[] arr = JsonConvert.DeserializeObject<object[]>(content);
@@ -148,10 +153,10 @@ namespace xlstool {
                 foreach (DataColumn column in sheet.Columns)
                 {
                     object value = row[column];
-
+                    fieldType = sheet.Rows[1][column].ToString();
                     if (value.GetType() == typeof(System.DBNull))
                     {
-                        value = getColumnDefault(sheet, column, firstDataRow);
+                        value = Utils.GetDefaultValue(CodeType.Json, fieldType);
                     }
                     else if (value.GetType() == typeof(double))
                     { // 去掉数值字段的“.0”
@@ -168,20 +173,24 @@ namespace xlstool {
                     if (string.IsNullOrEmpty(fieldName))
                         fieldName = string.Format("col_{0}", col);
 
-                    fieldType = sheet.Rows[1][column].ToString();
+                    
                     if (Utils.IsArray(fieldType))
                     {
                         string content = "[";
-                        string[] items = Utils.GetArrayItems(value.ToString());
-                        if (items != null)
+                        if (value != null)
                         {
-                            for (int i = 0; i < items.Length; i++)
+                            string[] items = Utils.GetArrayItems(value.ToString());
+                            if (items != null)
                             {
-                                content += items[i];
-                                if (i != items.Length - 1)
-                                    content += ",";
+                                for (int i = 0; i < items.Length; i++)
+                                {
+                                    content += items[i];
+                                    if (i != items.Length - 1)
+                                        content += ",";
+                                }
                             }
                         }
+                       
 
                         content += "]";
                         object[] arr = JsonConvert.DeserializeObject<object[]>(content);
@@ -195,22 +204,6 @@ namespace xlstool {
             
 
             return rowData;
-        }
-
-        /// <summary>
-        /// 对于表格中的空值，找到一列中的非空值，并构造一个同类型的默认值
-        /// </summary>
-        private object getColumnDefault(DataTable sheet, DataColumn column, int firstDataRow) {
-            for (int i = firstDataRow; i < sheet.Rows.Count; i++) {
-                object value = sheet.Rows[i][column];
-                Type valueType = value.GetType();
-                if (valueType != typeof(System.DBNull)) {
-                    if (valueType.IsValueType)
-                        return Activator.CreateInstance(valueType);
-                    break;
-                }
-            }
-            return "";
         }
 
         /// <summary>

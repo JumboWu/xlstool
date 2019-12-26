@@ -37,7 +37,7 @@
 
 
 
-例如：**xlstool -i ExampleData.xlsx -t 英雄#HeroCfg  -c json HeroCfg  .json -h 4 -a true**
+例如：**xlstool -i ExampleData.xlsx -t 英雄#HeroCfg  -c json HeroCfg  .json -h 4 **
 
 ## GUI工具
 
