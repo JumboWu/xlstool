@@ -46,7 +46,8 @@ namespace xlstool
                     FieldDef field;
                     field.name = sheet.Rows[i][0].ToString();
                     field.type = sheet.Rows[i][1].ToString();
-
+                    if (string.IsNullOrEmpty(field.name) || string.IsNullOrEmpty(field.type))
+                        continue;
                     if (Utils.IsArray(field.type))
                     {
                         string fType = Utils.GetArrayItemType(field.type);
@@ -77,7 +78,8 @@ namespace xlstool
                     FieldDef field;
                     field.name = nameRow[column].ToString();
                     field.type = typeRow[column].ToString();
-
+                    if (string.IsNullOrEmpty(field.name) || string.IsNullOrEmpty(field.type))
+                        continue;
                     if (Utils.IsArray(field.type))
                     {
                         string fType = Utils.GetArrayItemType(field.type);

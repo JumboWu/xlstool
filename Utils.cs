@@ -138,7 +138,7 @@ namespace xlstool
                         case "double":
                             return default(double);
                         case "string":
-                            return default(string);
+                            return "";
                         case "bool":
                             return default(bool);
                         default:

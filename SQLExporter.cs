@@ -113,8 +113,8 @@ namespace xlstool
             sb.AppendFormat("CREATE TABLE {0} (\n", tabelName);
 
             string key;
-            string filedName;
-            string filedType;
+            string fieldName;
+            string fieldType;
 
             DataRow nameRow = sheet.Rows[0];
             DataRow typeRow = sheet.Rows[1];
@@ -122,14 +122,19 @@ namespace xlstool
             sb.AppendFormat("PRIMARY KEY ({0}) ", key);
             foreach (DataColumn column in sheet.Columns)
             {
-                filedName = nameRow[column].ToString();
+                fieldName = nameRow[column].ToString();
+                fieldType = typeRow[column].ToString();
+                if (string.IsNullOrEmpty(fieldName) || string.IsNullOrEmpty(fieldType))
+                    continue;
+
                 if (lowcase)
-                    filedName = filedName.ToLower();
+                    fieldName = fieldName.ToLower();
 
-                filedType = typeRow[column].ToString();
 
-                filedType = Utils.ConvertFieldType(CodeType.Sql, filedType);
-                sb.AppendFormat(", {0} {1}", filedName, filedType);
+
+
+                fieldType = Utils.ConvertFieldType(CodeType.Sql, fieldType);
+                sb.AppendFormat(", {0} {1}", fieldName, fieldType);
 
             }
 

@@ -100,6 +100,9 @@ namespace xlstool
                 {
                     fieldName = sheet.Rows[i][0].ToString();
                     fieldType = sheet.Rows[i][1].ToString();
+                    if (string.IsNullOrEmpty(fieldName) || string.IsNullOrEmpty(fieldType))
+                        continue;
+
                     // 表头自动转换成小写
                     if (lowcase)
                         fieldName = fieldName.ToLower();
@@ -152,6 +155,9 @@ namespace xlstool
                 {
                     object value = row[column];
                     fieldType = sheet.Rows[1][column].ToString();
+                    fieldName = sheet.Rows[0][column].ToString();
+                    if (string.IsNullOrEmpty(fieldName) || string.IsNullOrEmpty(fieldType))
+                        continue;
 
                     if (value.GetType() == typeof(System.DBNull))
                     {
@@ -164,7 +170,7 @@ namespace xlstool
                             value = (int)num;
                     }
 
-                    fieldName = sheet.Rows[0][column].ToString();
+                    
                     // 表头自动转换成小写
                     if (lowcase)
                         fieldName = fieldName.ToLower();
